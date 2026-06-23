@@ -61,7 +61,7 @@ export default function LetterReveal({ emoji, title, message, senderName }: Prop
                             duration: 0.65,
                             ease: [0.25, 0.46, 0.45, 0.94],
                         }}
-                        className="text-sm leading-8 font-light"
+                        className="handwritten text-xl leading-8 font-light"
                         style={{ color: 'var(--deep-warm)' }}
                     >
                         {line}

@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+/* @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap'); */
+
+:root {
+  --cream: #faf8f5;
+  --ivory: #f5f0e8;
+  --warm-white: #fefcf9;
+  --beige: #e8e0d0;
+  --dusty-rose: #c9a99a;
+  --muted-lavender: #b8b0c8;
+  --warm-gray: #8a8278;
+  --deep-warm: #3d3530;
+  --envelope-tan: #e8d5b0;
+  --envelope-shadow: #c4aa7e;
+  --wax-seal: #8b3a3a;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--deep-warm);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.font-serif {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--dusty-rose);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Selection color */
+::selection {
+  background-color: var(--dusty-rose);
+  color: var(--warm-white);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--beige);
+  border-radius: 99px;
+}
+
+/* Input placeholders */
+input::placeholder,
+textarea::placeholder {
+  color: var(--warm-gray);
+  opacity: 0.6;
+}
+
+/* Textarea resize handle */
+textarea {
+  resize: none;
+}
+
+/* Prevent flash of unstyled inputs */
+input,
+textarea,
+button {
+  font-family: inherit;
+}
+
+/* Subtle paper texture on letter cards */
+.paper-texture {
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(232, 224, 208, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(201, 169, 154, 0.08) 0%, transparent 50%);
+}

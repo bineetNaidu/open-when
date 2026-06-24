@@ -6,6 +6,7 @@ import SealAnimation from '../components/animations/SealAnimation'
 import { generateId } from '../utils/id'
 import { buildShareUrl } from '../utils/url'
 import type { Letter } from '../types'
+import { useInlineTip } from '../hooks/useInlineTip'
 
 const SUGGESTIONS = [
     "Open when you miss me…",
@@ -28,6 +29,34 @@ interface CardProps {
     onDelete: (id: string) => void
     onClick: () => void
 }
+
+function InlineTip({ message, visible }: { message: string; visible: boolean }) {
+    return (
+      <AnimatePresence>
+        {visible && (
+          <motion.div
+            initial={{ opacity: 0, y: -6, height: 0 }}
+            animate={{ opacity: 1, y: 0, height: 'auto' }}
+            exit={{ opacity: 0, y: -4, height: 0 }}
+            transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="overflow-hidden"
+          >
+            <div
+              className="flex items-start gap-2.5 px-4 py-3 rounded-xl text-xs leading-relaxed font-light mb-3"
+              style={{
+                backgroundColor: 'rgba(201,169,154,0.12)',
+                border: '1px solid rgba(201,169,154,0.3)',
+                color: 'var(--warm-gray)',
+              }}
+            >
+              <span style={{ color: 'var(--dusty-rose)' }}>✦</span>
+              {message}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    )
+  }
 
 function LetterCard({ letter, index, isActive, onChange, onDelete, onClick }: CardProps) {
     return (
@@ -211,6 +240,9 @@ export default function CreatePage() {
     const filledLetters = letters.filter(l => l.title || l.message)
     const isEmpty = filledLetters.length === 0
 
+    const showNameTip = useInlineTip(senderName.length > 0, 1200)
+    const showLetterTip = useInlineTip(letters.length >= 2, 600)
+
     return (
         <div className="relative min-h-screen" style={{ backgroundColor: 'var(--cream)' }}>
             <FloatingParticles />
@@ -289,12 +321,16 @@ export default function CreatePage() {
                         value={senderName}
                         onChange={e => setSenderName(e.target.value)}
                         placeholder="Your name…"
-                        className="w-full rounded-2xl border px-5 py-4 bg-transparent outline-none text-sm font-light transition-all"
+                        className="w-full rounded-2xl border px-5 py-4 bg-transparent outline-none text-sm font-light transition-all mb-3"
                         style={{
                             borderColor: senderName ? 'var(--dusty-rose)' : 'var(--beige)',
                             backgroundColor: 'var(--warm-white)',
                             color: 'var(--deep-warm)',
                         }}
+                    />
+                    <InlineTip
+                        visible={showNameTip}
+                        message="Your name will appear on the letter — a small thing that makes it feel real."
                     />
                 </motion.div>
 
@@ -316,6 +352,11 @@ export default function CreatePage() {
                             {activeIndex + 1} / {letters.length}
                         </span>
                     </div>
+
+                    <InlineTip
+                        visible={showLetterTip}
+                        message="Each letter opens on a different day. The more you write, the longer the gift lasts."
+                    />
 
                     {/* ── Suggestion chips ── */}
                     <div
